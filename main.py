@@ -85,10 +85,10 @@ async def test(ctx):
 
 @client.command()
 async def help(ctx, args=None):
-    embed=discord.Embed(title="PyShell Bot", description="What can I do?", color=0x00ACEE)
+    embed=discord.Embed(title="PyShell Bot", description="by: jasonli0616\nWhat can I do?", color=0x00ACEE)
+    embed.set_thumbnail(url="https://raw.githubusercontent.com/jasonli0616/PyShell-Discord-Bot/main/pyshell_pfp.png")
     embed.add_field(name="Python", value="Type python code in bot-code or bot-commands channel", inline=False)
     embed.add_field(name="Warning", value="Importing GUI libraries will sometimes break the bot, please refrain from doing so.", inline=False)
-
     await ctx.send(embed=embed)
 
 
