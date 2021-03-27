@@ -29,6 +29,7 @@ banned_imports = [
     "pygt5",
     "pygui",
     "pysimplegui",
+    "kivy",
 ]
 
 in_banned = False
