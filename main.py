@@ -12,7 +12,6 @@ import os
 import subprocess
 from datetime import datetime as dt
 
-eastern = timezone('US/Eastern')
 client = commands.Bot(command_prefix='p!')
 
 client.remove_command('help')
