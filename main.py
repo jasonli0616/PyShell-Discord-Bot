@@ -12,6 +12,7 @@ import os
 import subprocess
 from datetime import datetime as dt
 
+
 client = commands.Bot(command_prefix='p! ')
 
 client.remove_command('help')
@@ -42,7 +43,7 @@ async def on_message(message):
         if imports in str(message.content).lower():
             in_banned = True
         else:
-            in_banned = False
+            pass
         
     if str(message.channel) == "pyshell" or str(message.channel) == "bot-code" and message.author.id != client.user.id:
         if in_banned == False:
@@ -58,15 +59,20 @@ async def on_message(message):
                 await message.channel.send("```" + str(outStr) + "```")
             else:
                 pass
-            print("ran:")
+            print(message.author + " ran:")
             print(inStr)
             print("out:")
             print(outStr)
             f = open("files/pyin.py", "w")
             f.write("")
             f.close()
-        elif in_banned == True:
+        elif in_banned == True and message.author.id != client.user.id:
+            inStr = str(message.content)
             await message.channel.send("Unavailable command")
+            in_banned = False
+            print(message.author + " ran:")
+            print(inStr)
+            print("out: Unavailable command")
     else:
         pass
 
