@@ -34,47 +34,38 @@ banned_imports = [
     "pygui",
 ]
 
-channels = [
-    # Channel ID ints here
-]
-
 in_banned = False
-code_channel = False
 
 @client.event
 async def on_message(message):
-    global in_banned, code_channel
-
-    for channelIDs in channels:
-        if channelIDs == message.channel.id:
-            code_channel = True
+    global in_banned
 
     for imports in banned_imports:
         if imports in str(message.content).lower():
             in_banned = True
         else:
             in_banned = False
-
         
-    if code_channel == True and message.author.id != client.user.id and in_banned == False:
-        inStr = str(message.content)
-        f = open("files/pyin.py", "w")
-        f.write(inStr)
-        f.close()
-        with open("files/pyout.txt", "w") as output:
-            subprocess.call(["python", "files/pyin.py"], stdout=output)
-        output = open("files/pyout.txt", "r")
-        outStr = output.read()
-        await message.channel.send(outStr)
-        print("ran:")
-        print(inStr)
-        print("out:")
-        print(outStr)
-        f = open("files/pyin.py", "w")
-        f.write("")
-        f.close()
-    elif code_channel == True and message.author.id != client.user.id and in_banned == True:
-        await message.channel.send("GUI libraries are unavailable")
+    if str(message.channel) == "pyshell" or str(message.channel) == "bot-code":
+        if message.author.id != client.user.id and in_banned == False:
+            inStr = str(message.content)
+            f = open("files/pyin.py", "w")
+            f.write(inStr)
+            f.close()
+            with open("files/pyout.txt", "w") as output:
+                subprocess.call(["python", "files/pyin.py"], stdout=output)
+            output = open("files/pyout.txt", "r")
+            outStr = output.read()
+            await message.channel.send(outStr)
+            print("ran:")
+            print(inStr)
+            print("out:")
+            print(outStr)
+            f = open("files/pyin.py", "w")
+            f.write("")
+            f.close()
+        elif message.author.id != client.user.id and in_banned == True:
+            await message.channel.send("GUI libraries are unavailable")
     else:
         pass
 
@@ -91,7 +82,7 @@ async def test(ctx):
 async def help(ctx, args=None):
     embed=discord.Embed(title="PyShell Bot", description="by: jasonli0616\nWhat can I do?", color=0x00ACEE)
     embed.set_thumbnail(url="https://raw.githubusercontent.com/jasonli0616/PyShell-Discord-Bot/main/pyshell_pfp.png")
-    embed.add_field(name="Python", value="Type python code in bot-code or bot-commands channel", inline=False)
+    embed.add_field(name="Python", value="Type python code in pyshell or bot-code channel\nChannel named \"pyshell\" or \"bot-code\" required", inline=False)
     embed.add_field(name="Warning", value="Importing GUI libraries will sometimes break the bot, please refrain from doing so.", inline=False)
     await ctx.send(embed=embed)
 
