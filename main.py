@@ -28,6 +28,7 @@ banned_imports = [
     "tkinter",
     "pygt5",
     "pygui",
+    "pysimplegui",
 ]
 
 in_banned = False
