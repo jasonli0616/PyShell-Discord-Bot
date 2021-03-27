@@ -3,7 +3,7 @@ PyShell Discord Bot
 Made by: Jason Li
 
 Invite link:
-https://discord.com/oauth2/authorize?client_id=825106616826331167&scope=bot&permissions=76800
+https://discord.com/oauth2/authorize?client_id=825106616826331167&scope=bot&permissions=117760
 '''
 
 import discord
@@ -19,7 +19,7 @@ client.remove_command('help')
 @client.event
 async def on_ready():
     eventTime = str(dt.now())
-    print("Bot is online " + eventTime + "ET")
+    print("Bot is online " + eventTime)
 
     await client.change_presence(activity=discord.Game(name="p! help"))
 
@@ -44,8 +44,8 @@ async def on_message(message):
         else:
             in_banned = False
         
-    if str(message.channel) == "pyshell" or str(message.channel) == "bot-code":
-        if message.author.id != client.user.id and in_banned == False:
+    if str(message.channel) == "pyshell" or str(message.channel) == "bot-code" and message.author.id != client.user.id:
+        if in_banned == False:
             inStr = str(message.content)
             f = open("files/pyin.py", "w")
             f.write(inStr)
@@ -66,7 +66,7 @@ async def on_message(message):
             f.write("")
             f.close()
         elif message.author.id != client.user.id and in_banned == True:
-            await message.channel.send("GUI libraries are unavailable")
+            await message.channel.send("Unavailable command")
     else:
         pass
 
