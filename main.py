@@ -11,9 +11,6 @@ from discord.ext import commands
 import os
 import subprocess
 from datetime import datetime as dt
-from keep_alive import keep_alive
-import pytz
-from pytz import timezone
 
 eastern = timezone('US/Eastern')
 client = commands.Bot(command_prefix='p!')
@@ -22,7 +19,7 @@ client.remove_command('help')
 
 @client.event
 async def on_ready():
-    eventTime = str(eastern.localize(dt.now()))
+    eventTime = dt.now()
     print("Bot is online " + eventTime + "ET")
 
     await client.change_presence(activity=discord.Game(name="p!"))
@@ -73,7 +70,7 @@ async def on_message(message):
 
 @client.command()
 async def test(ctx):
-    eventTime = str(eastern.localize(dt.now()))
+    eventTime = dt.now()
     embedTitle = "Bot is online " + eventTime + "UTC"
     embed = discord.Embed(title=embedTitle)
     await ctx.send(embed=embed)
@@ -87,5 +84,4 @@ async def help(ctx, args=None):
     await ctx.send(embed=embed)
 
 
-keep_alive()
 client.run(os.getenv("TOKEN"))
