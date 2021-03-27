@@ -65,7 +65,7 @@ async def on_message(message):
             f = open("files/pyin.py", "w")
             f.write("")
             f.close()
-        elif message.author.id != client.user.id and in_banned == True:
+        elif in_banned == True:
             await message.channel.send("Unavailable command")
     else:
         pass
