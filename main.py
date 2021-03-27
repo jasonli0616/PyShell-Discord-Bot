@@ -12,16 +12,16 @@ import os
 import subprocess
 from datetime import datetime as dt
 
-client = commands.Bot(command_prefix='p!')
+client = commands.Bot(command_prefix='p! ')
 
 client.remove_command('help')
 
 @client.event
 async def on_ready():
-    eventTime = dt.now()
+    eventTime = str(dt.now())
     print("Bot is online " + eventTime + "ET")
 
-    await client.change_presence(activity=discord.Game(name="p!"))
+    await client.change_presence(activity=discord.Game(name="p! help"))
 
 banned_imports = [
     "pygame",
@@ -69,18 +69,19 @@ async def on_message(message):
 
 @client.command()
 async def test(ctx):
-    eventTime = dt.now()
+    eventTime = str(dt.now())
     embedTitle = "Bot is online " + eventTime + "UTC"
     embed = discord.Embed(title=embedTitle)
     await ctx.send(embed=embed)
 
 @client.command()
 async def help(ctx, args=None):
-    embed=discord.Embed(title="PyShell Bot", description="by: jasonli0616\nWhat can I do?", color=0x00ACEE)
+    embed=discord.Embed(title="PyShell Bot", description="by: jasonli0616", url="https://pyshell-bot.jasonli0616.repl.co", color=0x00ACEE)
     embed.set_thumbnail(url="https://raw.githubusercontent.com/jasonli0616/PyShell-Discord-Bot/main/pyshell_pfp.png")
     embed.add_field(name="Python", value="Type python code in pyshell or bot-code channel\nChannel named \"pyshell\" or \"bot-code\" required", inline=False)
     embed.add_field(name="Warning", value="Importing GUI libraries will sometimes break the bot, please refrain from doing so.", inline=False)
+    embed.add_field(name="Website", value="Visit our website for more info: https://pyshell-bot.jasonli0616.repl.co", inline=False)
+    embed.add_field(name="Source code", value="See source code on GitHub: https://github.com/jasonli0616/PyShell-Discord-Bot", inline=False)
     await ctx.send(embed=embed)
-
 
 client.run(os.getenv("TOKEN"))
