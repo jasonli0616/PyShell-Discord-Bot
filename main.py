@@ -1,26 +1,29 @@
 '''
 PyShell Discord Bot
-
 Made by: Jason Li
-'''
 
-# Invite link:
-# https://discord.com/oauth2/authorize?client_id=825106616826331167&scope=bot&permissions=76800
+Invite link:
+https://discord.com/oauth2/authorize?client_id=825106616826331167&scope=bot&permissions=76800
+'''
 
 import discord
 from discord.ext import commands
 import os
 import subprocess
 from datetime import datetime as dt
+from keep_alive import keep_alive
+import pytz
+from pytz import timezone
 
+eastern = timezone('US/Eastern')
 client = commands.Bot(command_prefix='p!')
 
 client.remove_command('help')
 
 @client.event
 async def on_ready():
-    eventTime = str(dt.now())
-    print("Bot is online " + eventTime + "UTC")
+    eventTime = str(eastern.localize(dt.now()))
+    print("Bot is online " + eventTime + "ET")
 
     await client.change_presence(activity=discord.Game(name="p!"))
 
@@ -32,7 +35,7 @@ banned_imports = [
 ]
 
 channels = [
-    # channel id int here
+    # Channel ID ints here
 ]
 
 in_banned = False
@@ -42,17 +45,16 @@ code_channel = False
 async def on_message(message):
     global in_banned, code_channel
 
+    for channelIDs in channels:
+        if channelIDs == message.channel.id:
+            code_channel = True
+
     for imports in banned_imports:
         if imports in str(message.content).lower():
             in_banned = True
         else:
             in_banned = False
-    
-    for channelIDs in channels:
-        if channelIDs == message.channel.id:
-            code_channel = True
-        else:
-            code_channel = False
+
         
     if code_channel == True and message.author.id != client.user.id and in_banned == False:
         inStr = str(message.content)
@@ -71,6 +73,8 @@ async def on_message(message):
         f = open("files/pyin.py", "w")
         f.write("")
         f.close()
+    elif code_channel == True and message.author.id != client.user.id and in_banned == True:
+        await message.channel.send("GUI libraries are unavailable")
     else:
         pass
 
@@ -78,7 +82,7 @@ async def on_message(message):
 
 @client.command()
 async def test(ctx):
-    eventTime = str(dt.now())
+    eventTime = str(eastern.localize(dt.now()))
     embedTitle = "Bot is online " + eventTime + "UTC"
     embed = discord.Embed(title=embedTitle)
     await ctx.send(embed=embed)
@@ -92,4 +96,5 @@ async def help(ctx, args=None):
     await ctx.send(embed=embed)
 
 
+keep_alive()
 client.run(os.getenv("TOKEN"))
