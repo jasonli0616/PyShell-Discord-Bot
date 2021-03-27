@@ -53,8 +53,11 @@ async def on_message(message):
             with open("files/pyout.txt", "w") as output:
                 subprocess.call(["python", "files/pyin.py"], stdout=output)
             output = open("files/pyout.txt", "r")
-            outStr = output.read()
-            await message.channel.send("```" + str(outStr) + "```")
+            outStr = str(output.read())
+            if outStr != "":
+                await message.channel.send("```" + str(outStr) + "```")
+            else:
+                pass
             print("ran:")
             print(inStr)
             print("out:")
