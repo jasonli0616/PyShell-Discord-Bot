@@ -18,6 +18,7 @@ client.remove_command('help')
 
 @client.event
 async def on_ready():
+    
     eventTime = str(dt.now())
     print("Bot is online " + eventTime)
 
