@@ -67,6 +67,7 @@ async def on_message(message):
             f = open("files/pyin.py", "w")
             f.write("")
             f.close()
+
         elif in_banned == True and str(message.author.id) != '825106616826331167':
             inStr = str(message.content)
             await message.channel.send("Unavailable command")
@@ -74,6 +75,7 @@ async def on_message(message):
             print(str(message.author) + " ran:")
             print(inStr)
             print("out: Unavailable command")
+            
         elif str(message.author.id) == '825106616826331167':
             pass
     else:
