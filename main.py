@@ -18,7 +18,6 @@ client.remove_command('help')
 
 @client.event
 async def on_ready():
-    
     eventTime = str(dt.now())
     print("Bot is online " + eventTime)
 
@@ -59,10 +58,12 @@ async def on_message(message):
                 await message.channel.send(str(outStr))
             else:
                 pass
-            print(str(message.author) + " ran:")
-            print(inStr)
-            print("out:")
-            print(outStr)
+
+            confirmStr = (str(message.author) + " ran:") + "\n" + inStr + "\n" + "out:" + "\n" + outStr
+            confirmChannel = client.get_channel(825545951003148339)
+            print(confirmStr)
+            await confirmChannel.send(confirmStr)
+
             f = open("files/pyin.py", "w")
             f.write("")
             f.close()
@@ -73,6 +74,8 @@ async def on_message(message):
             print(str(message.author) + " ran:")
             print(inStr)
             print("out: Unavailable command")
+    elif message.author.id == client.user.id:
+        pass
     else:
         pass
 
