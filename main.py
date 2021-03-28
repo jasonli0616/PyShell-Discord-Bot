@@ -44,7 +44,7 @@ async def on_message(message):
         else:
             pass
         
-    if str(message.channel) == "pyshell" or str(message.channel) == "bot-code" and message.author.id != client.user.id:
+    if str(message.channel) == "pyshell" or str(message.channel) == "bot-code" and message.author.id != 825106616826331167:
         if in_banned == False:
             inStr = str(message.content)
             f = open("files/pyin.py", "w")
@@ -67,7 +67,7 @@ async def on_message(message):
             f = open("files/pyin.py", "w")
             f.write("")
             f.close()
-        elif in_banned == True and message.author.id != client.user.id:
+        elif in_banned == True and message.author.id != 825106616826331167:
             inStr = str(message.content)
             await message.channel.send("Unavailable command")
             in_banned = False
