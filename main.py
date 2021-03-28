@@ -30,6 +30,8 @@ banned_imports = [
     "pygui",
     "pysimplegui",
     "kivy",
+    "rm",
+    "rmdir",
 ]
 
 in_banned = False
