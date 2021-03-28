@@ -55,7 +55,7 @@ async def on_message(message):
             output = open("files/pyout.txt", "r")
             outStr = str(output.read())
             if outStr != "":
-                await message.channel.send("```" + str(outStr) + "```")
+                await message.channel.send(str(outStr))
             else:
                 pass
             print(str(message.author) + " ran:")
