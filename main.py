@@ -98,6 +98,7 @@ async def help(ctx, args=None):
     embed.add_field(name="Warning", value="Importing GUI libraries will sometimes break the bot, please refrain from doing so.", inline=False)
     embed.add_field(name="Website", value="Visit our website for more info: https://pyshell-bot.jasonli0616.repl.co", inline=False)
     embed.add_field(name="Source code", value="See source code on GitHub: https://github.com/jasonli0616/PyShell-Discord-Bot", inline=False)
+    embed.add_field(name="Help/Report bug", value="For support or to report a bug, head over to our support server https://discord.gg/mjBrQsu6tw", inline=False)
     await ctx.send(embed=embed)
 
 
