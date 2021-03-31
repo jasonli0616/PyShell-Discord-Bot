@@ -3,7 +3,7 @@ PyShell Discord Bot
 Made by: Jason Li
 
 Invite link:
-https://discord.com/oauth2/authorize?client_id=825106616826331167&scope=bot&permissions=201587920
+https://discord.com/oauth2/authorize?client_id (add your bot client id here) &scope=bot&permissions=201587920
 '''
 
 import discord
